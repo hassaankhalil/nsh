@@ -1,5 +1,5 @@
 #include "parser.hpp"
-#include "builtins.hpp"
+#include "executer.hpp"
 #include <iostream>
 
 int main()
@@ -14,7 +14,6 @@ int main()
             continue;
 
         std::vector<std::string> tokens = Parser::parseInput(input);
-
-        Builtins::handle(tokens);
+        Executer::execute(tokens);
     }
 }
