@@ -24,10 +24,12 @@ void Executer::execute(const std::vector<std::string> &tokens)
 
         if (status != 0)
         {
+            std::string msg = "failed to execute command";
+
             if (errno == ENOENT)
-                std::cerr << tokens[0] << ": command not found" << std::endl;
-            else
-                std::cerr << tokens[0] << ": failed to execute command" << std::endl;
+                msg = "command not found";
+
+            std::cerr << tokens[0] << ": " << msg << std::endl;
         }
     }
     else if (pid == -1)

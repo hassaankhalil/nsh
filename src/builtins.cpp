@@ -18,7 +18,16 @@ bool Builtins::handle(const std::vector<std::string> &tokens)
             int status = chdir(path);
 
             if (status != 0)
-                std::cerr << "cd: failed to change directory: " << tokens[1] << std::endl;
+            {
+                std::string msg = "failed to change directory";
+
+                if (errno == ENOENT)
+                    msg = "no such file or directory";
+                else if (errno == EACCES)
+                    msg = "permission denied";
+
+                std::cerr << "cd: " << msg << ": " << tokens[1] << std::endl;
+            }
         }
 
         return true;
