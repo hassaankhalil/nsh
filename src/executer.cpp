@@ -36,7 +36,9 @@ void Executer::execute(const std::vector<std::string> &tokens)
 
     pid_t pid = fork();
 
-    if (pid == 0)
+    if (pid < 0) // fork failed
+        std::cerr << tokens[0] << ": failed to execute command" << std::endl;
+    else if (pid == 0) // child process
     {
         if (!outfile.empty())
         {
